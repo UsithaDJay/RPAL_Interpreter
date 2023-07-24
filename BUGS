@@ -1,0 +1,4 @@
+BUGS
+========
+All tests are currently passing.
+None known (the ones reported in Walstra's implementation function correctly in mine).
