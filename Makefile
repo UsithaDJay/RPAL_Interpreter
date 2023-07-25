@@ -1,25 +1,43 @@
-SRCDIR = src
-ROOTDIR = .
-
 # Define the Java compiler and flags
 JAVAC = javac
-JFLAGS = -d $(ROOTDIR)/ -sourcepath src
+JFLAGS = -d .
 
-# List all your Java source files here
-SOURCES = $(wildcard $(SRCDIR)/*.java)
+# Define the source directory
+SRCDIR = src
+
+# Define the classpath
+CLASSPATH = -cp .
 
 # Define the main class
 MAIN_CLASS = rpal20
 
-# Default target to compile all .java files
-all: $(SOURCES:$(SRCDIR)/%.java=$(ROOTDIR)/%.class)
+# Collect all Java source files recursively using wildcard function
+SOURCES := $(wildcard $(SRCDIR)/**/*.java $(SRCDIR)/*.java)
 
-# Rule for compiling each .java file to .class
-$(ROOTDIR)/%.class: $(SRCDIR)/%.java
-	$(JAVAC) $(JFLAGS) $<
+# Define the default target (what will be built when you run 'make' without any arguments)
+all: build
 
-# Target for cleaning the generated .class files
+# Target for compiling Java source files
+build: $(SOURCES)
+	$(JAVAC) $(JFLAGS) $(SOURCES)
+
+# Target for moving class files to the root directory
+move: build
+	@find . -name "*.class" -print0 | xargs -0 mv -t .
+
+# Target for running the Java program
+run:
+	java $(CLASSPATH) $(MAIN_CLASS)
+
+# Target for cleaning (removing generated class files)
+
 clean:
 	del /q .\*.class
 
 .PHONY: all clean
+
+# clean:
+# 	rm -f *.class
+
+# # Phony targets to avoid conflicts with files/folders named "clean", "run", and "move"
+# .PHONY: all build run clean move
