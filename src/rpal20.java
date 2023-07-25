@@ -6,7 +6,7 @@ import java.io.*;
 //import com.neeraj2608.rpalinterpreter.parser.Parser;
 //import com.neeraj2608.rpalinterpreter.scanner.Scanner;
 
-public class Main {
+public class rpal20 {
 
     public static String fileName;
 
