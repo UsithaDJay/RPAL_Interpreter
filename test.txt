@@ -1,1 +1,1 @@
-let A = 1 in Print (+ 1 A)
+let A = 10 in Print (A+56)
