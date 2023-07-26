@@ -1,4 +1,4 @@
-//package src;
+package lexer;
 
 /**
  * Type of token constructed by the scanner.

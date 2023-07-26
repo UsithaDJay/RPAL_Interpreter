@@ -1,4 +1,4 @@
-//package src;
+package lexer;
 
 /**
  * Token given by the scanner to the parser.

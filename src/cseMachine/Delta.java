@@ -1,11 +1,11 @@
-//package src;
+package cseMachine;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-//import com.neeraj2608.rpalinterpreter.ast.ASTNode;
-//import com.neeraj2608.rpalinterpreter.ast.ASTNodeType;
+import treeGenerator.ASTNode;
+import treeGenerator.ASTNodeType;
 
 /**
  * Represents a lambda closure.

@@ -1,4 +1,6 @@
+package treeGenerator;
 
+import cseMachine.NodeCopier;
 
 /**
  * Abstract Syntax Tree node. Uses a first-child, next-sibling representation.

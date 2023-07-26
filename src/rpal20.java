@@ -1,10 +1,10 @@
-//package src;
-
 import java.io.*;
-//import com.neeraj2608.rpalinterpreter.csem.CSEMachine;
-//import com.neeraj2608.rpalinterpreter.parser.ParseException;
-//import com.neeraj2608.rpalinterpreter.parser.Parser;
-//import com.neeraj2608.rpalinterpreter.scanner.Scanner;
+
+import cseMachine.CSEMachine;
+import parser.ParseException;
+import parser.Parser;
+import treeGenerator.AST;
+import lexer.Scanner;
 
 public class rpal20 {
 
@@ -30,26 +30,6 @@ public class rpal20 {
         CSEMachine csem = new CSEMachine(ast);
         csem.evaluateProgram();
         System.out.println();
-    }
-
-    private static void printInputListing(String fileName){
-        BufferedReader buffer = null;
-        try{
-            buffer = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fileName))));
-            String s = "";
-            while((s = buffer.readLine())!=null){
-                System.out.println(s);
-            }
-        }catch(FileNotFoundException e){
-            throw new ParseException("File "+fileName+" not found.");
-        }catch(IOException e){
-            throw new ParseException("Error reading from file "+fileName);
-        }finally{
-            try{
-                if(buffer!=null) buffer.close();
-            }catch(IOException e){
-            }
-        }
     }
 
     private static AST buildAST(String fileName){

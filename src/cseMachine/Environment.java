@@ -1,9 +1,9 @@
-//package src;
+package cseMachine;
 
 import java.util.HashMap;
 import java.util.Map;
 
-//import com.neeraj2608.rpalinterpreter.ast.ASTNode;
+import treeGenerator.ASTNode;
 
 public class Environment{
   private Environment parent;

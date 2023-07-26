@@ -1,4 +1,4 @@
-//package src;
+package treeGenerator;
 
 public class StandardizeException extends RuntimeException{
   private static final long serialVersionUID = 1L;

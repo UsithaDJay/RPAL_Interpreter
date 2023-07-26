@@ -8,11 +8,11 @@ SRCDIR = src
 # Define the classpath
 CLASSPATH = -cp .
 
+# # Collect all Java source files recursively using wildcard function
+SOURCES := $(wildcard $(SRCDIR)/**/*.java $(SRCDIR)/*.java)
+
 # Define the main class
 MAIN_CLASS = rpal20
-
-# Collect all Java source files recursively using wildcard function
-SOURCES := $(wildcard $(SRCDIR)/**/*.java $(SRCDIR)/*.java)
 
 # Define the default target (what will be built when you run 'make' without any arguments)
 all: build
@@ -30,14 +30,11 @@ run:
 	java $(CLASSPATH) $(MAIN_CLASS)
 
 # Target for cleaning (removing generated class files)
-
 clean:
 	del /q .\*.class
+	rd /s /q lexer
+	rd /s /q parser
+	rd /s /q treeGenerator
+	rd /s /q cseMachine
 
 .PHONY: all clean
-
-# clean:
-# 	rm -f *.class
-
-# # Phony targets to avoid conflicts with files/folders named "clean", "run", and "move"
-# .PHONY: all build run clean move

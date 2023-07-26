@@ -1,4 +1,4 @@
-
+package treeGenerator;
 
 /**
  * Type of abstract syntax tree node. As specified in the RPAL phrase structure grammar.

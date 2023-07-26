@@ -1,13 +1,13 @@
-//package src;
+package parser;
 
 import java.util.Stack;
 
-//import com.neeraj2608.rpalinterpreter.ast.AST;
-//import com.neeraj2608.rpalinterpreter.ast.ASTNode;
-//import com.neeraj2608.rpalinterpreter.ast.ASTNodeType;
-//import com.neeraj2608.rpalinterpreter.scanner.Scanner;
-//import com.neeraj2608.rpalinterpreter.scanner.Token;
-//import com.neeraj2608.rpalinterpreter.scanner.TokenType;
+import treeGenerator.AST;
+import treeGenerator.ASTNode;
+import treeGenerator.ASTNodeType;
+import lexer.Scanner;
+import lexer.Token;
+import lexer.TokenType;
 
 /**
  * Recursive descent parser that complies with RPAL's phrase structure grammar.
