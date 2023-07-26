@@ -1,10 +1,15 @@
 package lexer;
 
-/**
- * Type of token constructed by the scanner.
- * @author Raj
- *
+/*
+ TokenType.java
+
+  This file contains the definition of the TokenType enum, which represents the type of tokens
+  constructed by the scanner. Each token in the input program is classified into one of the token
+  types defined in this enum.
+
  */
+
+// Enumerated type for token types
 public enum TokenType{
   IDENTIFIER,
   INTEGER,
@@ -15,7 +20,7 @@ public enum TokenType{
   R_PAREN,
   SEMICOLON,
   COMMA,
-  RESERVED; //this is used to distinguish reserved RPAL keywords (complete list defined in Token.java)
-            //from other identifiers (which are represented by the IDENTIFIER type) to simplify the
-            //parser logic
+  RESERVED; // Represents a token for reserved RPAL keywords (e.g., let, in, fn, rec, etc.)
+            // It is used to distinguish reserved keywords from other identifiers
+            // to simplify the parser logic.
 }

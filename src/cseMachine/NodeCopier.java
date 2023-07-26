@@ -7,16 +7,18 @@ import java.util.Stack;
 import treeGenerator.ASTNode;
 
 /**
- * Class to make copies of nodes on value stack. Used to pass back copies of
- * environment bindings so that later uses of those bindings are not affected
- * by any changes made in any earlier deltas.
+ * NodeCopier.java
  * 
- * <p>Uses the Visitor pattern to avoid instanceOf code smell.
+ * The `NodeCopier` class is responsible for creating copies of nodes in the Abstract Syntax Tree (AST)
+ * for the CSE (Compiled String Execution) machine. These copies are used to pass back duplicates of
+ * environment bindings, ensuring that later uses of those bindings are not affected by any changes made
+ * in earlier deltas.
  * 
- * @author Raj
+ * <p>The class uses the Visitor pattern to avoid using instanceof checks and maintain cleaner code.
  */
 public class NodeCopier{
   
+  // Creates a copy of the given ASTNode and its descendants.
   public ASTNode copy(ASTNode astNode){
     ASTNode copy = new ASTNode();
     if(astNode.getChild()!=null)
@@ -29,6 +31,7 @@ public class NodeCopier{
     return copy;
   }
   
+  // Creates a copy of the given Beta and its descendants.
   public Beta copy(Beta beta){
     Beta copy = new Beta();
     if(beta.getChild()!=null)
@@ -54,6 +57,7 @@ public class NodeCopier{
     return copy;
   }
   
+  // Creates a copy of the given Eta and its descendants.
   public Eta copy(Eta eta){
     Eta copy = new Eta();
     if(eta.getChild()!=null)
@@ -69,6 +73,7 @@ public class NodeCopier{
     return copy;
   }
   
+  // Creates a copy of the given Delta and its descendants.
   public Delta copy(Delta delta){
     Delta copy = new Delta();
     if(delta.getChild()!=null)
@@ -95,6 +100,7 @@ public class NodeCopier{
     return copy;
   }
   
+  // Creates a copy of the given Tuple and its descendants.
   public Tuple copy(Tuple tuple){
     Tuple copy = new Tuple();
     if(tuple.getChild()!=null)

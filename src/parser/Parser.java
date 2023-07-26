@@ -9,15 +9,19 @@ import lexer.Scanner;
 import lexer.Token;
 import lexer.TokenType;
 
-/**
- * Recursive descent parser that complies with RPAL's phrase structure grammar.
- * <p>This class does all the heavy lifting:
- * <ul>
- * <li>It gets input from the scanner for every clause in the phase structure grammar.
- * <li>It builds the abstract syntax tree.
- * </ul>
- * @author Raj
+/*
+ * Parser.java
+ * 
+ * This class implements a recursive descent parser that complies with RPAL's phrase structure grammar.
+ * The parser performs the following tasks:
+ * - It receives input from the scanner for each clause in the phrase structure grammar.
+ * - It constructs the abstract syntax tree (AST) for the RPAL program.
+ * 
+ * The RPAL language, which stands for "Right-reference Pedagogic Algorithmic Language," is a functional language
+ * with no concept of assignment or memory. RPAL programs consist of function definitions and function applications.
  */
+
+
 public class Parser{
   private Scanner s;
   private Token currentToken;
@@ -76,6 +80,7 @@ public class Parser{
   /**
    * Builds an N-ary AST node. <p>For example, if the stack at a given point in time
    * looks like so:
+   * 
    * <pre>
    * a <- top of stack
    * b
@@ -83,20 +88,25 @@ public class Parser{
    * d
    * ...
    * </pre>
+   
    * Then, after the call buildNAryASTNode(Z, 3), the stack will look like so:
+   * 
    * <pre>
    * X <- top of stack
    * d
    * ...
    * </pre>
+   
    * where X has three children a, b, and c, and is of type Z. Or, in the first-child, next-sibling representation:      
    * <pre>
    * X
    * |
    * a -> b -> c
    * </pre>
+   
    * @param type type of node to build
    * @param ariness number of children to create for the new node
+   
    */
   private void buildNAryASTNode(ASTNodeType type, int ariness){
     ASTNode node = new ASTNode();
@@ -121,7 +131,7 @@ public class Parser{
   }
   
   /******************************
-   * Expressions
+   * EXPRESSIONS
    *******************************/
   
   /**
@@ -182,7 +192,7 @@ public class Parser{
   }
   
   /******************************
-   * Tuple Expressions
+   * TUPLE EXPRESSIONS
    *******************************/
   
   /**
@@ -240,7 +250,7 @@ public class Parser{
   }
   
   /******************************
-   * Boolean Expressions
+   * BOOLEAN EXPRESSIONS
    *******************************/
   
   /**
@@ -339,7 +349,7 @@ public class Parser{
   
   
   /******************************
-   * Arithmetic Expressions
+   * ARITHMETIC EXPRESSIONS
    *******************************/
   
   /**
@@ -441,7 +451,7 @@ public class Parser{
   }
   
   /******************************
-   * Rators and Rands
+   * RATORS AND RANDS
    *******************************/
   
   /**
@@ -510,7 +520,7 @@ public class Parser{
   }
 
   /******************************
-   * Definitions
+   * DEFINITIONS
    *******************************/
   
   /**
@@ -623,7 +633,7 @@ public class Parser{
   }
   
   /******************************
-   * Variables
+   * VARIABLES
    *******************************/
   
   /**

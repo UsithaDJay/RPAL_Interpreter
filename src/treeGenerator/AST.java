@@ -7,8 +7,12 @@ import cseMachine.Beta;
 import cseMachine.Delta;
 
 /*
- * Abstract Syntax Tree: The nodes use a first-child
- * next-sibling representation.
+ * AST.java
+ * 
+ * The `AST` class represents an Abstract Syntax Tree (AST) using a first-child, next-sibling representation.
+ * It provides methods to standardize the tree and create delta structures from the standardized tree.
+ * The class also contains a private inner class `PendingDeltaBody` used to keep track of pending delta bodies.
+ * 
  */
 public class AST{
   private ASTNode root;
@@ -22,45 +26,13 @@ public class AST{
     this.root = node;
   }
 
-  /**
-   * Prints the tree nodes in pre-order fashion.
-   */
-  public void print(){
-    preOrderPrint(root,"");
-  }
-
-  private void preOrderPrint(ASTNode node, String printPrefix){
-    if(node==null)
-      return;
-
-    printASTNodeDetails(node, printPrefix);
-    preOrderPrint(node.getChild(),printPrefix+".");
-    preOrderPrint(node.getSibling(),printPrefix);
-  }
-
-  private void printASTNodeDetails(ASTNode node, String printPrefix){
-    if(node.getType() == ASTNodeType.IDENTIFIER ||
-        node.getType() == ASTNodeType.INTEGER){
-      System.out.printf(printPrefix+node.getType().getPrintName()+"\n",node.getValue());
-    }
-    else if(node.getType() == ASTNodeType.STRING)
-      System.out.printf(printPrefix+node.getType().getPrintName()+"\n",node.getValue());
-    else
-      System.out.println(printPrefix+node.getType().getPrintName());
-  }
-
-  /**
-   * Standardize this tree
-   */
+  // Standardize this tree
   public void standardize(){
     standardize(root);
     standardized = true;
   }
 
-  /**
-   * Standardize the tree bottom-up
-   * @param node node to standardize
-   */
+  // Standardize the tree bottom-up
   private void standardize(ASTNode node){
     //standardize the children first
     if(node.getChild()!=null){
@@ -240,6 +212,7 @@ public class AST{
     }
   }
 
+  // Populates the comma and tau nodes for the SIMULTDEF standardization
   private void populateCommaAndTauNode(ASTNode equalNode, ASTNode commaNode, ASTNode tauNode){
     if(equalNode.getType()!=ASTNodeType.EQUAL)
       throw new StandardizeException("SIMULTDEF: one of the children is not EQUAL"); //safety
@@ -251,10 +224,7 @@ public class AST{
 
   /**
    * Either creates a new child of the parent or attaches the child node passed in
-   * as the last sibling of the parent's existing children 
-   * @param parentNode
-   * @param childNode
-   */
+   * as the last sibling of the parent's existing children */
   private void setChild(ASTNode parentNode, ASTNode childNode){
     if(parentNode.getChild()==null)
       parentNode.setChild(childNode);
@@ -267,6 +237,7 @@ public class AST{
     childNode.setSibling(null);
   }
 
+  // Constructs a lambda chain from the given node
   private ASTNode constructLambdaChain(ASTNode node){
     if(node.getSibling()==null)
       return node;
@@ -279,10 +250,7 @@ public class AST{
     return lambdaNode;
   }
 
-  /**
-   * Creates delta structures from the standardized tree
-   * @return the first delta structure (&delta;0)
-   */
+  // Creates delta structures from the standardized tree
   public Delta createDeltas(){
     pendingDeltaBodyQueue = new ArrayDeque<PendingDeltaBody>();
     deltaIndex = 0;
@@ -291,6 +259,7 @@ public class AST{
     return rootDelta;
   }
 
+  // Creates a delta structure from the given node
   private Delta createDelta(ASTNode startBodyNode){
     //we'll create this delta's body later
     PendingDeltaBody pendingDelta = new PendingDeltaBody();
@@ -309,6 +278,7 @@ public class AST{
     return d;
   }
 
+  // Processes the pending delta stack
   private void processPendingDeltaStack(){
     while(!pendingDeltaBodyQueue.isEmpty()){
       PendingDeltaBody pendingDeltaBody = pendingDeltaBodyQueue.pop();
@@ -316,6 +286,7 @@ public class AST{
     }
   }
   
+  // Builds the delta body for the given node
   private void buildDeltaBody(ASTNode node, Stack<ASTNode> body){
     if(node.getType()==ASTNodeType.LAMBDA){ //create a new delta
       Delta d = createDelta(node.getChild().getSibling()); //the new delta's body starts at the right child of the lambda
@@ -361,11 +332,13 @@ public class AST{
     }
   }
 
+  // Nested class to manage pending delta bodies
   private class PendingDeltaBody{
     Stack<ASTNode> body;
     ASTNode startNode;
   }
 
+  // Returns a boolean flag indicating whether the AST has been standardized
   public boolean isStandardized(){
     return standardized;
   }

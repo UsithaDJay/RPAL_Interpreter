@@ -3,8 +3,10 @@ package treeGenerator;
 import cseMachine.NodeCopier;
 
 /**
- * Abstract Syntax Tree node. Uses a first-child, next-sibling representation.
- * @author Raj
+ * ASTNode.java
+ * 
+ * The `ASTNode` class represents a node in the Abstract Syntax Tree (AST) using a first-child, next-sibling representation.
+ * It contains information about the type, value, children, sibling, and source line number of the node.
  */
 public class ASTNode{
   private ASTNodeType type;
@@ -13,9 +15,12 @@ public class ASTNode{
   private ASTNode sibling;
   private int sourceLineNumber;
   
+  // Get the name of the AST node type (enum value name)
   public String getName(){
     return type.name();
   }
+
+  // Getters and Setters for the ASTNode properties
 
   public ASTNodeType getType(){
     return type;
@@ -49,14 +54,18 @@ public class ASTNode{
     this.value = value;
   }
 
+  
+  // Accepts a NodeCopier to create a deep copy of the ASTNode
   public ASTNode accept(NodeCopier nodeCopier){
     return nodeCopier.copy(this);
   }
 
+  // Get the line number in the source code where the node was encountered
   public int getSourceLineNumber(){
     return sourceLineNumber;
   }
 
+  // Set the line number in the source code where the node was encountered
   public void setSourceLineNumber(int sourceLineNumber){
     this.sourceLineNumber = sourceLineNumber;
   }

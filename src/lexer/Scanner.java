@@ -8,10 +8,23 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Scanner: Combines a lexer and a screener. Complies with RPAL's Lexicon.
- * @author Raj
+/*
+ Scanner.java
+
+  This file contains the implementation of the Scanner class, which combines a lexer and a screener to tokenize
+  the input RPAL program. The Scanner class complies with RPAL's Lexicon, generating tokens for various constructs
+  in the RPAL language.
+
+  The Scanner class includes the following functionalities:
+  - Reading the next character from the input file.
+  - Building tokens for identifiers, integers, operators, and strings based on RPAL's lexical grammar.
+  - Handling special cases such as reserved identifiers, spaces, comments, and punctuation tokens.
+
+  The Scanner class is used by the RPAL compiler to convert the input RPAL program into a stream of tokens that
+  can be processed by the parser and other parts of the compiler.
+
  */
+
 public class Scanner{
   private BufferedReader buffer;
   private String extraCharRead;
@@ -25,10 +38,7 @@ public class Scanner{
     buffer = new BufferedReader(new InputStreamReader(new FileInputStream(new File(inputFile))));
   }
   
-  /**
-   * Returns next token from input file
-   * @return null if the file has ended
-   */
+  // Returns the next token from the input file, or null if the file has ended.
   public Token readNextToken(){
     Token nextToken = null;
     String nextChar;
@@ -42,6 +52,7 @@ public class Scanner{
     return nextToken;
   }
 
+  // Reads the next character from the input file.
   private String readNextChar(){
     String nextChar = null;
     try{
@@ -56,11 +67,7 @@ public class Scanner{
     return nextChar;
   }
 
-  /**
-   * Builds next token from input
-   * @param currentChar character currently being processed 
-   * @return token that was built
-   */
+  // Builds the next token from the input based on the current character being processed.
   private Token buildToken(String currentChar){
     Token nextToken = null;
     if(LexicalRegexPatterns.LetterPattern.matcher(currentChar).matches()){
@@ -84,12 +91,7 @@ public class Scanner{
     return nextToken;
   }
 
-  /**
-   * Builds Identifier token.
-   * Identifier -> Letter (Letter | Digit | '_')*
-   * @param currentChar character currently being processed 
-   * @return token that was built
-   */
+  // Builds a token for an identifier.
   private Token buildIdentifierToken(String currentChar){
     Token identifierToken = new Token();
     identifierToken.setType(TokenType.IDENTIFIER);
@@ -116,12 +118,7 @@ public class Scanner{
     return identifierToken;
   }
 
-  /**
-   * Builds integer token.
-   * Integer -> Digit+
-   * @param currentChar character currently being processed 
-   * @return token that was built
-   */
+  // Builds a token for an integer.
   private Token buildIntegerToken(String currentChar){
     Token integerToken = new Token();
     integerToken.setType(TokenType.INTEGER);
@@ -144,12 +141,7 @@ public class Scanner{
     return integerToken;
   }
 
-  /**
-   * Builds operator token.
-   * Operator -> Operator_symbol+
-   * @param currentChar character currently being processed 
-   * @return token that was built
-   */
+  // Builds a token for an operator.
   private Token buildOperatorToken(String currentChar){
     Token opSymbolToken = new Token();
     opSymbolToken.setType(TokenType.OPERATOR);
@@ -176,12 +168,7 @@ public class Scanner{
     return opSymbolToken;
   }
 
-  /**
-   * Builds string token.
-   * String -> '''' ('\' 't' | '\' 'n' | '\' '\' | '\' '''' |'(' | ')' | ';' | ',' |'' |Letter | Digit | Operator_symbol )* ''''
-   * @param currentChar character currently being processed 
-   * @return token that was built
-   */
+  // Builds a token for a string.
   private Token buildStringToken(String currentChar){
     Token stringToken = new Token();
     stringToken.setType(TokenType.STRING);
@@ -204,6 +191,7 @@ public class Scanner{
     return null;
   }
   
+  // Builds a token for spaces.
   private Token buildSpaceToken(String currentChar){
     Token deleteToken = new Token();
     deleteToken.setType(TokenType.DELETE);
